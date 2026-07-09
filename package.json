@@ -1,0 +1,10 @@
+{
+  "name": "project-manager",
+  "version": "1.0.0",
+  "description": "前端项目管理器 - Wails + React + TypeScript",
+  "scripts": {
+    "dev": "wails dev",
+    "build": "wails build",
+    "generate": "wails generate module"
+  }
+}
