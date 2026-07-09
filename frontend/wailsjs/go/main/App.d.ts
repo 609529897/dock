@@ -12,6 +12,8 @@ export function GetTheme():Promise<string>;
 
 export function RemoveProject(arg1:string):Promise<void>;
 
+export function ReorderProjects(arg1:Array<main.ProjectConfig>):Promise<void>;
+
 export function SelectFolder():Promise<string>;
 
 export function SetTheme(arg1:string):Promise<void>;

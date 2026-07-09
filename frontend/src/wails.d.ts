@@ -9,6 +9,7 @@ declare global {
           AddProject: (folderPath: string) => Promise<AddProjectResult>
           RemoveProject: (projectPath: string) => Promise<void>
           UpdateProject: (projectPath: string, config: Partial<ProjectConfig>) => Promise<void>
+          ReorderProjects: (projects: ProjectConfig[]) => Promise<void>
           StartProject: (projectPath: string) => Promise<StartProjectResult>
           StopProject: (projectPath: string) => Promise<void>
           GetAllStatuses: () => Promise<Record<string, ProcessStatus>>

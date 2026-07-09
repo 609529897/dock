@@ -103,6 +103,14 @@ export default function App(): JSX.Element {
     [loadProjects]
   )
 
+  const handleReorderProjects = useCallback(
+    async (reorderedProjects: ProjectConfig[]) => {
+      setProjects(reorderedProjects)
+      await api.reorderProjects(reorderedProjects)
+    },
+    []
+  )
+
   const handleStart = useCallback(
     async (projectPath: string) => {
       setStatuses((prev) => ({ ...prev, [projectPath]: 'starting' }))
@@ -136,6 +144,7 @@ export default function App(): JSX.Element {
           onSelect={setSelectedPath}
           onAdd={handleAddProject}
           onRemove={handleRemoveProject}
+          onReorder={handleReorderProjects}
           onStart={handleStart}
           onStop={handleStop}
         />

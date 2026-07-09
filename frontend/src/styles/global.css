@@ -171,13 +171,18 @@ input, textarea, .log-panel-content {
 /* ===== 侧边栏项目条目 ===== */
 .project-item {
   padding: 8px 10px 8px 12px;
-  cursor: pointer;
+  cursor: grab;
   border-radius: 6px;
-  transition: background 0.1s;
+  transition: background 0.1s, opacity 0.15s;
   display: flex;
   flex-direction: column;
   gap: 3px;
   margin-bottom: 1px;
+  touch-action: none;
+}
+
+.project-item:active {
+  cursor: grabbing;
 }
 
 .project-item:hover {
@@ -185,11 +190,20 @@ input, textarea, .log-panel-content {
 }
 
 .project-item-selected {
-  background: color-mix(in srgb, var(--accent-blue) 12%, transparent);
+  background: color-mix(in srgb, var(--accent-blue) 10%, transparent);
+  border-left: 2px solid var(--accent-blue);
+  padding-left: 10px;
 }
 
 .project-item-selected:hover {
-  background: color-mix(in srgb, var(--accent-blue) 16%, transparent);
+  background: color-mix(in srgb, var(--accent-blue) 14%, transparent);
+}
+
+.project-item-dragging {
+  opacity: 0.55;
+  background: var(--bg-hover);
+  z-index: 10;
+  box-shadow: var(--shadow-md);
 }
 
 .project-item-main {

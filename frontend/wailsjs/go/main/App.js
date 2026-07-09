@@ -22,6 +22,10 @@ export function RemoveProject(arg1) {
   return window['go']['main']['App']['RemoveProject'](arg1);
 }
 
+export function ReorderProjects(arg1) {
+  return window['go']['main']['App']['ReorderProjects'](arg1);
+}
+
 export function SelectFolder() {
   return window['go']['main']['App']['SelectFolder']();
 }

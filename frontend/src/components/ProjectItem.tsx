@@ -1,3 +1,5 @@
+import { useSortable } from '@dnd-kit/sortable'
+import { CSS } from '@dnd-kit/utilities'
 import type { ProjectConfig, ProcessStatus } from '../shared/types'
 
 interface ProjectItemProps {
@@ -12,7 +14,15 @@ interface ProjectItemProps {
 
 function FolderIcon(): JSX.Element {
   return (
-    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinejoin="round">
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 14 14"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.2"
+      strokeLinejoin="round"
+    >
       <path d="M1.5 4.5a1 1 0 0 1 1-1h3l1.5 1.5h4a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-8.5a1 1 0 0 1-1-1z" />
     </svg>
   )
@@ -30,10 +40,32 @@ export default function ProjectItem({
   const isRunning = status === 'running'
   const isStarting = status === 'starting'
 
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging
+  } = useSortable({ id: project.path })
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition
+  }
+
   return (
     <div
-      className={`project-item ${isSelected ? 'project-item-selected' : ''}`}
+      ref={setNodeRef}
+      style={style}
+      className={[
+        'project-item',
+        isSelected ? 'project-item-selected' : '',
+        isDragging ? 'project-item-dragging' : ''
+      ].join(' ')}
       onClick={onSelect}
+      {...attributes}
+      {...listeners}
     >
       <div className="project-item-main">
         <span className={`project-status-dot ${isRunning ? 'running' : ''}`} />

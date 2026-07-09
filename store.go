@@ -91,6 +91,15 @@ func (s *Store) UpdateProject(projectPath string, update ProjectConfigUpdate) {
 	s.save()
 }
 
+func (s *Store) SetProjects(projects []ProjectConfig) {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	out := make([]ProjectConfig, len(projects))
+	copy(out, projects)
+	s.data.Projects = out
+	s.save()
+}
+
 func (s *Store) GetTheme() string {
 	s.mu.RLock()
 	defer s.mu.RUnlock()

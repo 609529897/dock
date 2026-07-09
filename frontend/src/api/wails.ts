@@ -10,6 +10,8 @@ export const api = {
   updateProject: (projectPath: string, config: Partial<ProjectConfig>) =>
     window.go.main.App.UpdateProject(projectPath, config),
 
+  reorderProjects: (projects: ProjectConfig[]) => window.go.main.App.ReorderProjects(projects),
+
   startProject: (projectPath: string) => window.go.main.App.StartProject(projectPath),
 
   stopProject: (projectPath: string) => window.go.main.App.StopProject(projectPath),

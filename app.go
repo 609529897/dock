@@ -62,6 +62,10 @@ func (a *App) UpdateProject(projectPath string, update ProjectConfigUpdate) {
 	store.UpdateProject(projectPath, update)
 }
 
+func (a *App) ReorderProjects(projects []ProjectConfig) {
+	store.SetProjects(projects)
+}
+
 func (a *App) StartProject(projectPath string) StartProjectResult {
 	projects := store.GetProjects()
 	var project *ProjectConfig
