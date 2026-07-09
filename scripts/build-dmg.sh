@@ -5,7 +5,7 @@ set -euo pipefail
 PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$PROJECT_DIR"
 
-REFERENCE_DIR="${PROJECT_DIR}/frontend/resource"
+REFERENCE_DIR="${PROJECT_DIR}/resource"
 APP_NAME=$(node -e "console.log(require('./wails.json').name)")
 BUNDLE_NAME="${APP_NAME}.app"
 DMG_NAME="${APP_NAME}.dmg"
