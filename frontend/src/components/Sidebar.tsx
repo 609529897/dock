@@ -9,7 +9,8 @@ import {
   PointerSensor,
   useSensor,
   useSensors,
-  type DragEndEvent
+  type DragEndEvent,
+  type Modifier
 } from '@dnd-kit/core'
 import {
   SortableContext,
@@ -35,6 +36,11 @@ function arrayMove<T>(array: T[], from: number, to: number): T[] {
   newArray.splice(to, 0, moved)
   return newArray
 }
+
+const restrictToVerticalAxis: Modifier = ({ transform }) => ({
+  ...transform,
+  x: 0
+})
 
 export default function Sidebar({
   projects,
@@ -97,6 +103,7 @@ export default function Sidebar({
         sensors={sensors}
         collisionDetection={closestCenter}
         onDragEnd={handleDragEnd}
+        modifiers={[restrictToVerticalAxis]}
       >
         <SortableContext
           items={projects.map((p) => p.path)}
