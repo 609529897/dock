@@ -1,124 +1,138 @@
-/* ===== Liquid Glass 双主题变量 (lookAway / macOS Tahoe 风格) ===== */
+/* ===== Linear × Liquid Glass 激进风格 ===== */
+
 :root,
 [data-theme='dark'] {
-  /* 基础背景(底层,用于非玻璃区域) */
-  --bg-base: #161618;
-  --bg-terminal: #141416;
+  --bg-base: #0f0a0a;
+  --bg-terminal: #120d0d;
 
-  /* Liquid Glass 材质(高通透) */
-  --glass-bg: rgba(28, 28, 32, 0.42);
-  --glass-bg-strong: rgba(30, 30, 34, 0.62);
+  --glass-bg: rgba(28, 16, 16, 0.55);
+  --glass-bg-strong: rgba(32, 18, 18, 0.72);
   --glass-bg-subtle: rgba(255, 255, 255, 0.03);
-  --glass-bg-hover: rgba(255, 255, 255, 0.055);
-  --glass-bg-active: rgba(255, 255, 255, 0.09);
+  --glass-bg-hover: rgba(255, 255, 255, 0.06);
+  --glass-bg-active: rgba(255, 255, 255, 0.1);
 
-  /* 玻璃边框与内发光 */
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --glass-border-strong: rgba(255, 255, 255, 0.12);
+  --glass-border: rgba(255, 255, 255, 0.09);
+  --glass-border-strong: rgba(255, 255, 255, 0.15);
   --glass-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.08);
 
-  /* 输入框 / 终端 */
   --bg-input: rgba(255, 255, 255, 0.04);
   --bg-input-hover: rgba(255, 255, 255, 0.07);
+  --bg-input-focus: rgba(255, 99, 99,  0.08);
 
-  /* 文字色(柔化对比) */
-  --text-primary: #ececef;
-  --text-secondary: #9a9aa0;
-  --text-muted: #6c6c72;
+  --text-primary: #f0f0f5;
+  --text-secondary: #9595a5;
+  --text-muted: #60606e;
 
-  /* 边框(兼容旧引用) */
   --border-color: var(--glass-border);
   --border-light: rgba(255, 255, 255, 0.04);
 
-  /* 交互色 - 橙色保留 */
-  --accent-blue: #ff6b35;
-  --accent-blue-hover: #ff8052;
-  --accent-soft: color-mix(in srgb, var(--accent-blue) 14%, transparent);
-  --accent-softer: color-mix(in srgb, var(--accent-blue) 8%, transparent);
+  --accent-blue: #FF6363;
+  --accent-blue-hover: #FF8585;
+  --accent-glow: #FF6363;
+  --accent-soft: rgba(255, 99, 99,  0.15);
+  --accent-softer: rgba(255, 99, 99,  0.07);
+  --accent-vivid: #FF9999;
 
-  /* 状态指示 */
-  --color-running: #32d74b;
-  --color-stopped: #48484a;
-  --color-error: #ff453a;
+  --color-running: #4cc38a;
+  --color-stopped: #48484e;
+  --color-error: #eb5757;
 
-  /* 阴影(更柔和,更大半径) */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px 1px rgba(0, 0, 0, 0.15);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.35), 0 1px 2px rgba(0, 0, 0, 0.2);
-  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.45), 0 2px 8px rgba(0, 0, 0, 0.25);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 6px 24px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.5);
 
-  /* 字体 */
-  --font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
   --font-mono: 'SF Mono', 'Fira Code', 'JetBrains Mono', 'Consolas', monospace;
 
-  /* 动画(lookAway 的慢节奏灵魂) */
   --ease-spring: cubic-bezier(0.32, 0.72, 0, 1);
-  --ease-out-soft: cubic-bezier(0.22, 0.61, 0.36, 1);
-  --duration-fast: 0.18s;
-  --duration-normal: 0.28s;
-  --duration-slow: 0.42s;
+  --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --duration-fast: 0.15s;
+  --duration-normal: 0.25s;
+  --duration-slow: 0.4s;
 
-  /* 圆角(放大一档) */
-  --radius-sm: 8px;
-  --radius-md: 10px;
-  --radius-lg: 14px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
 
-  /* 玻璃滤镜(更通透) */
-  --glass-blur: blur(40px) saturate(220%);
-  --glass-blur-strong: blur(60px) saturate(240%);
-  --glass-blur-soft: blur(20px) saturate(180%);
+  --glass-blur: blur(50px) saturate(200%);
+  --glass-blur-strong: blur(70px) saturate(220%);
+  --glass-blur-soft: blur(24px) saturate(180%);
 
-  /* 氛围光晕(lookAway 的"安静呼吸感") */
-  --ambient-glow: radial-gradient(
-    ellipse 80% 50% at 50% 0%,
-    color-mix(in srgb, var(--accent-blue) 8%, transparent) 0%,
+  --ambient-purple: radial-gradient(
+    ellipse 70% 50% at 30% 0%,
+    rgba(255, 99, 99,  0.12) 0%,
     transparent 60%
   );
-  --ambient-glow-cool: radial-gradient(
-    ellipse 60% 40% at 80% 100%,
-    rgba(80, 140, 255, 0.06) 0%,
+  --ambient-blue: radial-gradient(
+    ellipse 60% 50% at 80% 100%,
+    rgba(255, 160, 100,  0.08) 0%,
     transparent 60%
   );
 
-  /* 运行状态外发光 */
-  --running-glow: 0 0 0 1px color-mix(in srgb, var(--color-running) 18%, transparent),
-                  0 0 20px -4px color-mix(in srgb, var(--color-running) 35%, transparent);
-  --running-glow-soft: 0 0 12px -2px color-mix(in srgb, var(--color-running) 25%, transparent);
+  --running-glow: 0 0 0 1px rgba(76, 195, 138, 0.2),
+                  0 0 24px -4px rgba(76, 195, 138, 0.4);
+  --running-glow-soft: 0 0 14px -2px rgba(76, 195, 138, 0.3);
+
+  --accent-glow-strong: 0 0 0 1px rgba(255, 99, 99,  0.3),
+                        0 0 30px -6px rgba(255, 99, 99,  0.5);
+  --accent-glow-soft: 0 0 16px -4px rgba(255, 99, 99,  0.35);
 }
 
 [data-theme='light'] {
-  --bg-base: #e8e8ec;
-  --bg-terminal: #f4f4f6;
+  --bg-base: #eeeef2;
+  --bg-terminal: #f4f4f8;
 
-  --glass-bg: rgba(255, 255, 255, 0.45);
-  --glass-bg-strong: rgba(255, 255, 255, 0.68);
+  --glass-bg: rgba(255, 255, 255, 0.5);
+  --glass-bg-strong: rgba(255, 255, 255, 0.7);
   --glass-bg-subtle: rgba(0, 0, 0, 0.02);
   --glass-bg-hover: rgba(0, 0, 0, 0.04);
-  --glass-bg-active: rgba(0, 0, 0, 0.06);
+  --glass-bg-active: rgba(0, 0, 0, 0.07);
 
-  --glass-border: rgba(0, 0, 0, 0.07);
-  --glass-border-strong: rgba(0, 0, 0, 0.1);
+  --glass-border: rgba(0, 0, 0, 0.08);
+  --glass-border-strong: rgba(0, 0, 0, 0.12);
   --glass-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.7);
 
   --bg-input: rgba(255, 255, 255, 0.6);
   --bg-input-hover: rgba(255, 255, 255, 0.85);
+  --bg-input-focus: rgba(255, 99, 99,  0.06);
 
-  --text-primary: #1d1d1f;
-  --text-secondary: #5a5a60;
-  --text-muted: #8e8e96;
+  --text-primary: #1a1a2e;
+  --text-secondary: #5a5a6e;
+  --text-muted: #8e8ea0;
 
   --border-color: var(--glass-border);
   --border-light: rgba(0, 0, 0, 0.04);
 
-  --accent-blue: #ff6b35;
-  --accent-blue-hover: #e85a24;
-  --accent-soft: color-mix(in srgb, var(--accent-blue) 12%, transparent);
-  --accent-softer: color-mix(in srgb, var(--accent-blue) 6%, transparent);
+  --accent-blue: #FF6363;
+  --accent-blue-hover: #E05050;
+  --accent-soft: rgba(255, 99, 99,  0.1);
+  --accent-softer: rgba(255, 99, 99,  0.05);
 
-  --color-running: #28a745;
-  --color-stopped: #aeaeb2;
-  --color-error: #ff3b30;
+  --color-running: #2f9e6a;
+  --color-stopped: #b0b0bc;
+  --color-error: #d64545;
 
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04), 0 1px 1px rgba(0, 0, 0, 0.03);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
-  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 6px 24px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.15);
+
+  --ambient-purple: radial-gradient(
+    ellipse 70% 50% at 30% 0%,
+    rgba(255, 99, 99,  0.08) 0%,
+    transparent 60%
+  );
+  --ambient-blue: radial-gradient(
+    ellipse 60% 50% at 80% 100%,
+    rgba(255, 160, 100,  0.05) 0%,
+    transparent 60%
+  );
+
+  --running-glow: 0 0 0 1px rgba(47, 158, 106, 0.15),
+                  0 0 20px -4px rgba(47, 158, 106, 0.3);
+  --running-glow-soft: 0 0 12px -2px rgba(47, 158, 106, 0.2);
+
+  --accent-glow-strong: 0 0 0 1px rgba(255, 99, 99,  0.2),
+                        0 0 24px -6px rgba(255, 99, 99,  0.3);
+  --accent-glow-soft: 0 0 12px -4px rgba(255, 99, 99,  0.2);
 }
