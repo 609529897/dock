@@ -69,9 +69,9 @@ export default function ProjectItem({
     >
       <div className="project-item-main">
         <span className={`project-status-dot ${isRunning ? 'running' : ''}`} />
-        <span className="project-item-icon">
+        {/* <span className="project-item-icon">
           <FolderIcon />
-        </span>
+        </span> */}
         <div className="project-item-info">
           <span className="project-item-name">{project.name}</span>
           <span className="project-item-path">{project.path}</span>

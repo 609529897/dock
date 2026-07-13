@@ -1,67 +1,124 @@
-/* ===== Xcode 风格双主题变量 ===== */
+/* ===== Liquid Glass 双主题变量 (lookAway / macOS Tahoe 风格) ===== */
 :root,
 [data-theme='dark'] {
-  /* 背景色系 */
-  --bg-sidebar: #1c1c1c;        /* 深色侧边栏，参考 Postman */
-  --bg-primary: #252528;        /* 主内容区 */
-  --bg-secondary: #1f1f22;      /* 卡片/容器背景 */
-  --bg-hover: #2a2a2e;          /* hover 状态 */
-  --bg-input: #2c2c2e;          /* 输入框背景 */
-  --bg-input-hover: #353538;    /* 输入框 hover */
-  --bg-toolbar: #1c1c1c;        /* 顶部工具栏与侧边栏统一 */
-  --bg-terminal: #18181a;       /* 日志终端背景 */
+  /* 基础背景(底层,用于非玻璃区域) */
+  --bg-base: #161618;
+  --bg-terminal: #141416;
 
-  /* 文字色系 */
-  --text-primary: #f5f5f7;      /* 主文字近白 */
-  --text-secondary: #aeaeb2;    /* 次要文字 */
-  --text-muted: #8e8e93;        /* 占位/辅助文字 */
+  /* Liquid Glass 材质(高通透) */
+  --glass-bg: rgba(28, 28, 32, 0.42);
+  --glass-bg-strong: rgba(30, 30, 34, 0.62);
+  --glass-bg-subtle: rgba(255, 255, 255, 0.03);
+  --glass-bg-hover: rgba(255, 255, 255, 0.055);
+  --glass-bg-active: rgba(255, 255, 255, 0.09);
 
-  /* 边框与分割线 */
-  --border-color: #303033;      /* 柔和的分隔线 */
-  --border-light: #2a2a2d;
+  /* 玻璃边框与内发光 */
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-border-strong: rgba(255, 255, 255, 0.12);
+  --glass-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.08);
 
-  /* 交互色 - 橘色 */
-  --accent-blue: #ff6b35;       /* 更饱和的橘色 */
-  --accent-blue-hover: #ff7a47;
+  /* 输入框 / 终端 */
+  --bg-input: rgba(255, 255, 255, 0.04);
+  --bg-input-hover: rgba(255, 255, 255, 0.07);
+
+  /* 文字色(柔化对比) */
+  --text-primary: #ececef;
+  --text-secondary: #9a9aa0;
+  --text-muted: #6c6c72;
+
+  /* 边框(兼容旧引用) */
+  --border-color: var(--glass-border);
+  --border-light: rgba(255, 255, 255, 0.04);
+
+  /* 交互色 - 橙色保留 */
+  --accent-blue: #ff6b35;
+  --accent-blue-hover: #ff8052;
+  --accent-soft: color-mix(in srgb, var(--accent-blue) 14%, transparent);
+  --accent-softer: color-mix(in srgb, var(--accent-blue) 8%, transparent);
 
   /* 状态指示 */
-  --color-running: #30d158;     /* 绿色运行中 */
-  --color-stopped: #48484a;     /* 灰色已停止 */
-  --color-error: #ff453a;       /* 错误文字红 */
+  --color-running: #32d74b;
+  --color-stopped: #48484a;
+  --color-error: #ff453a;
 
-  /* 阴影 */
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.4);
+  /* 阴影(更柔和,更大半径) */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px 1px rgba(0, 0, 0, 0.15);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.35), 0 1px 2px rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.45), 0 2px 8px rgba(0, 0, 0, 0.25);
 
   /* 字体 */
   --font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
   --font-mono: 'SF Mono', 'Fira Code', 'JetBrains Mono', 'Consolas', monospace;
+
+  /* 动画(lookAway 的慢节奏灵魂) */
+  --ease-spring: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-out-soft: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --duration-fast: 0.18s;
+  --duration-normal: 0.28s;
+  --duration-slow: 0.42s;
+
+  /* 圆角(放大一档) */
+  --radius-sm: 8px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+
+  /* 玻璃滤镜(更通透) */
+  --glass-blur: blur(40px) saturate(220%);
+  --glass-blur-strong: blur(60px) saturate(240%);
+  --glass-blur-soft: blur(20px) saturate(180%);
+
+  /* 氛围光晕(lookAway 的"安静呼吸感") */
+  --ambient-glow: radial-gradient(
+    ellipse 80% 50% at 50% 0%,
+    color-mix(in srgb, var(--accent-blue) 8%, transparent) 0%,
+    transparent 60%
+  );
+  --ambient-glow-cool: radial-gradient(
+    ellipse 60% 40% at 80% 100%,
+    rgba(80, 140, 255, 0.06) 0%,
+    transparent 60%
+  );
+
+  /* 运行状态外发光 */
+  --running-glow: 0 0 0 1px color-mix(in srgb, var(--color-running) 18%, transparent),
+                  0 0 20px -4px color-mix(in srgb, var(--color-running) 35%, transparent);
+  --running-glow-soft: 0 0 12px -2px color-mix(in srgb, var(--color-running) 25%, transparent);
 }
 
 [data-theme='light'] {
-  --bg-sidebar: #f2f2f2;        /* 浅色侧边栏 */
-  --bg-primary: #ffffff;        /* 主内容区 */
-  --bg-secondary: #f7f7f7;      /* 卡片/容器背景 */
-  --bg-hover: #ededed;          /* hover 状态 */
-  --bg-input: #ffffff;
-  --bg-toolbar: #f2f2f2;        /* 顶部工具栏与侧边栏统一 */
-  --bg-terminal: #fafafa;       /* 日志终端背景 */
-  --bg-input-hover: #f5f5f7;
+  --bg-base: #e8e8ec;
+  --bg-terminal: #f4f4f6;
+
+  --glass-bg: rgba(255, 255, 255, 0.45);
+  --glass-bg-strong: rgba(255, 255, 255, 0.68);
+  --glass-bg-subtle: rgba(0, 0, 0, 0.02);
+  --glass-bg-hover: rgba(0, 0, 0, 0.04);
+  --glass-bg-active: rgba(0, 0, 0, 0.06);
+
+  --glass-border: rgba(0, 0, 0, 0.07);
+  --glass-border-strong: rgba(0, 0, 0, 0.1);
+  --glass-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+
+  --bg-input: rgba(255, 255, 255, 0.6);
+  --bg-input-hover: rgba(255, 255, 255, 0.85);
 
   --text-primary: #1d1d1f;
-  --text-secondary: #515154;
-  --text-muted: #8e8e93;
+  --text-secondary: #5a5a60;
+  --text-muted: #8e8e96;
 
-  --border-color: #e0e0e2;
-  --border-light: #ededed;
+  --border-color: var(--glass-border);
+  --border-light: rgba(0, 0, 0, 0.04);
 
   --accent-blue: #ff6b35;
   --accent-blue-hover: #e85a24;
+  --accent-soft: color-mix(in srgb, var(--accent-blue) 12%, transparent);
+  --accent-softer: color-mix(in srgb, var(--accent-blue) 6%, transparent);
 
-  --color-running: #30d158;
+  --color-running: #28a745;
   --color-stopped: #aeaeb2;
   --color-error: #ff3b30;
 
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
-  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04), 0 1px 1px rgba(0, 0, 0, 0.03);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.06);
 }
