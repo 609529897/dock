@@ -6,7 +6,7 @@ from __future__ import annotations
 import subprocess
 from pathlib import Path
 
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageFilter
 
 ROOT = Path(__file__).resolve().parent.parent
 ICONS = ROOT / "resource" / "icons"
@@ -52,26 +52,77 @@ def apply_safe_padding(image: Image.Image) -> Image.Image:
 
 
 def generate_tray_icon(size: int, output: Path) -> None:
-    """菜单栏托盘图标，内置安全边距，线条不会被系统裁切"""
+    """菜单栏托盘图标 — 简化舵轮（外圈+十字辐条），仅线条避免黑块"""
     scale = size / TRAY_ICON_1X
     img = Image.new("RGBA", (size, size), (0, 0, 0, 0))
     draw = ImageDraw.Draw(img)
     black = (0, 0, 0, 255)
     stroke = max(1, round(1.2 * scale))
-    # 基准16px下整体向内偏移1px预留安全区
-    safe_offset = 1
-    lines = [
-        (3 + safe_offset, 4, 13 - safe_offset, 4),
-        (2 + safe_offset, 8, 14 - safe_offset, 8),
-        (3 + safe_offset, 12, 13 - safe_offset, 12)
-    ]
-    for x1, y1, x2, y2 in lines:
-        draw.line(
-            (round(x1 * scale), round(y1 * scale), round(x2 * scale), round(y2 * scale)),
-            fill=black,
-            width=stroke,
-        )
+    cx, cy = size / 2, size / 2
+    r = max(3, round(5 * scale))
+    # 外圈
+    draw.ellipse(
+        [(cx - r, cy - r), (cx + r, cy + r)],
+        outline=black, width=stroke
+    )
+    # 十字辐条
+    draw.line((cx, cy - r, cx, cy + r), fill=black, width=stroke)
+    draw.line((cx - r, cy, cx + r, cy), fill=black, width=stroke)
     img.save(output, optimize=True)
+
+
+def add_drop_shadow(image: Image.Image, offset: int = 16, radius: int = 10, opacity: float = 0.2) -> Image.Image:
+    """为图标添加微暖白底 + 投影，让白色背景明确可见"""
+    size = image.size[0]
+    img_px = image.load()
+
+    # 暖白底色 (248,248,250) — 比纯白稍微暖一点，容易和壁纸区分
+    bg = Image.new("RGBA", (size, size), (248, 248, 250, 255))
+
+    # 提取前景（舵轮）蒙版
+    fg_mask = Image.new("L", (size, size), 0)
+    fg_px = fg_mask.load()
+    for x in range(size):
+        for y in range(size):
+            r, g, b, a = img_px[x, y]
+            if a > 80 and not (r > 248 and g > 248 and b > 248):
+                fg_px[x, y] = 255
+
+    # 舵轮偏移作阴影
+    shadow = Image.new("RGBA", (size, size), (0, 0, 0, 0))
+    s_px = shadow.load()
+    for x in range(size):
+        for y in range(size):
+            v = fg_px[x, y]
+            if v > 0 and y + offset < size:
+                s_px[x, y + offset] = (0, 0, 0, int(255 * opacity))
+    shadow = shadow.filter(ImageFilter.GaussianBlur(radius=radius))
+    bg = Image.alpha_composite(bg, shadow)
+
+    # 舵轮前景叠在阴影之上
+    fg_img = Image.new("RGBA", (size, size), (0, 0, 0, 0))
+    fgpx = fg_img.load()
+    for x in range(size):
+        for y in range(size):
+            r, g, b, a = img_px[x, y]
+            if a > 80 and not (r > 248 and g > 248 and b > 248):
+                fgpx[x, y] = (r, g, b, a)
+
+    return Image.alpha_composite(bg, fg_img)
+
+
+def add_icon_border(image: Image.Image, border_width: int = 2, color: tuple = (235, 235, 237, 255)) -> Image.Image:
+    """在图标边缘添加细微边框，让白色背景明确可见"""
+    size = image.size[0]
+    radius = macos_icon_radius(size)
+    border = Image.new("RGBA", (size, size), (0, 0, 0, 0))
+    draw = ImageDraw.Draw(border)
+    # 画一个略大的圆角矩形作为边框底
+    draw.rounded_rectangle(
+        (0, 0, size - 1, size - 1),
+        radius=radius, fill=color
+    )
+    return Image.alpha_composite(border, image)
 
 
 def generate_app_icon_from_svg() -> None:
@@ -94,7 +145,7 @@ def generate_app_icon_from_svg() -> None:
         # 强制统一尺寸1024
         if raw_img.size != (APP_ICON_SIZE, APP_ICON_SIZE):
             raw_img = raw_img.resize((APP_ICON_SIZE, APP_ICON_SIZE), Image.Resampling.LANCZOS)
-        # 修复：先切圆角蒙版，再做安全留白
+        # 先切圆角蒙版
         rounded_img = apply_macos_squircle_mask(raw_img)
         safe_img = apply_safe_padding(rounded_img)
         final_icon = safe_img
