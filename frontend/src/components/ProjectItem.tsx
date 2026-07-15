@@ -12,18 +12,18 @@ interface ProjectItemProps {
   onStop: () => void
 }
 
-function FolderIcon(): JSX.Element {
+function PlayIcon(): JSX.Element {
   return (
-    <svg
-      width="14"
-      height="14"
-      viewBox="0 0 14 14"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.2"
-      strokeLinejoin="round"
-    >
-      <path d="M1.5 4.5a1 1 0 0 1 1-1h3l1.5 1.5h4a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-8.5a1 1 0 0 1-1-1z" />
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round">
+      <path d="M2.5 1.5v9l8-4.5z" />
+    </svg>
+  )
+}
+
+function StopIcon(): JSX.Element {
+  return (
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round">
+      <rect x="2" y="2" width="8" height="8" rx="1.5" />
     </svg>
   )
 }
@@ -67,49 +67,42 @@ export default function ProjectItem({
       {...attributes}
       {...listeners}
     >
-      <div className="project-item-main">
-        <span className={`project-status-dot ${isRunning ? 'running' : ''}`} />
-        <span className="project-item-icon">
-          <FolderIcon />
-        </span>
-        <div className="project-item-info">
-          <span className="project-item-name">{project.name}</span>
-          <span className="project-item-path">{project.path}</span>
-        </div>
+      <span className={`project-status-dot ${isRunning ? 'running' : ''}`} />
+      <span className="project-item-name">{project.name}</span>
+      <div className="project-item-hover-actions">
         <button
-          className="project-item-remove"
+          className="project-item-action-btn"
+          onClick={(e) => {
+            e.stopPropagation()
+            if (isRunning) {
+              onStop()
+            } else if (!isStarting) {
+              onStart()
+            }
+          }}
+          disabled={isStarting}
+          title={isRunning ? '停止' : isStarting ? '启动中...' : '启动'}
+        >
+          {isStarting ? (
+            <span className="project-item-spinner" />
+          ) : isRunning ? (
+            <StopIcon />
+          ) : (
+            <PlayIcon />
+          )}
+        </button>
+        <button
+          className="project-item-action-btn project-item-remove"
           onClick={(e) => {
             e.stopPropagation()
             onRemove()
           }}
           title="移除项目"
         >
-          ×
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+            <path d="M2.5 2.5l7 7M9.5 2.5l-7 7" />
+          </svg>
         </button>
-      </div>
-      <div className="project-item-actions">
-        {isRunning ? (
-          <button
-            className="project-btn project-btn-stop"
-            onClick={(e) => {
-              e.stopPropagation()
-              onStop()
-            }}
-          >
-            停止
-          </button>
-        ) : (
-          <button
-            className="project-btn project-btn-start"
-            onClick={(e) => {
-              e.stopPropagation()
-              onStart()
-            }}
-            disabled={isStarting}
-          >
-            {isStarting ? '...' : '启动'}
-          </button>
-        )}
       </div>
     </div>
   )
