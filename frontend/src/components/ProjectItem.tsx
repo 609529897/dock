@@ -14,16 +14,16 @@ interface ProjectItemProps {
 
 function PlayIcon(): JSX.Element {
   return (
-    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round">
-      <path d="M2.5 1.5v9l8-4.5z" />
+    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round">
+      <path d="M2 1.25v7.5l6.5-3.75z" />
     </svg>
   )
 }
 
 function StopIcon(): JSX.Element {
   return (
-    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round">
-      <rect x="2" y="2" width="8" height="8" rx="1.5" />
+    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round">
+      <rect x="1.5" y="1.5" width="7" height="7" rx="1.3" />
     </svg>
   )
 }
@@ -99,8 +99,8 @@ export default function ProjectItem({
           }}
           title="移除项目"
         >
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
-            <path d="M2.5 2.5l7 7M9.5 2.5l-7 7" />
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
+            <path d="M2 2l6 6M8 2l-6 6" />
           </svg>
         </button>
       </div>

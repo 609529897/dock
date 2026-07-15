@@ -1,6 +1,13 @@
 <svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- 外圈 -->
-  <!-- <circle cx="256" cy="256" r="205" stroke="#ff6b35" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/> -->
+  <defs>
+    <linearGradient id="metal" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4a4a4a" />
+      <stop offset="25%" stop-color="#8a8a8a" />
+      <stop offset="50%" stop-color="#5a5a5a" />
+      <stop offset="75%" stop-color="#949494" />
+      <stop offset="100%" stop-color="#3d3d3d" />
+    </linearGradient>
+  </defs>
   <!-- 六辐条与把手 -->
   <path
     d="
@@ -17,10 +24,10 @@
       M 256 256 L 433.5 153.5
       M 444.5 172.55 L 422.5 134.45
     "
-    stroke="#60a5fa"
+    stroke="url(#metal)"
     stroke-width="24"
     stroke-linecap="round"
     stroke-linejoin="round"
   />
-  <circle cx="256" cy="256" r="100" stroke="#60a5fa" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="256" cy="256" r="100" stroke="url(#metal)" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>

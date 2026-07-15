@@ -125,18 +125,8 @@ export default function App(): JSX.Element {
 
   return (
     <div className="app">
-      <Toolbar
-        theme={theme}
-        onToggleTheme={toggleTheme}
-        onClearAll={async () => {
-          for (const p of projects) {
-            await api.removeProject(p.path)
-          }
-          setSelectedPath(null)
-          await loadProjects()
-        }}
-      />
-      <div className="app-body">
+      <div className="app-sidebar-column">
+        <div className="sidebar-top-drag" />
         <Sidebar
           projects={projects}
           selectedPath={selectedPath}
@@ -147,6 +137,19 @@ export default function App(): JSX.Element {
           onReorder={handleReorderProjects}
           onStart={handleStart}
           onStop={handleStop}
+        />
+      </div>
+      <div className="app-main-column">
+        <Toolbar
+          theme={theme}
+          onToggleTheme={toggleTheme}
+          onClearAll={async () => {
+            for (const p of projects) {
+              await api.removeProject(p.path)
+            }
+            setSelectedPath(null)
+            await loadProjects()
+          }}
         />
         <main className="main-content">
           {selectedProject ? (
