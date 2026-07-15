@@ -110,18 +110,25 @@ export default function Sidebar({
           strategy={verticalListSortingStrategy}
         >
           <div className="sidebar-list">
-            {projects.map((project) => (
-              <ProjectItem
-                key={project.path}
-                project={project}
-                isSelected={selectedPath === project.path}
-                status={statuses[project.path] ?? 'stopped'}
-                onSelect={() => onSelect(project.path)}
-                onRemove={() => onRemove(project.path)}
-                onStart={() => onStart(project.path)}
-                onStop={() => onStop(project.path)}
-              />
-            ))}
+            {projects.length === 0 ? (
+              <div className="sidebar-empty">
+                <span className="sidebar-empty-text">暂无项目</span>
+                <span className="sidebar-empty-hint">点击下方按钮添加</span>
+              </div>
+            ) : (
+              projects.map((project) => (
+                <ProjectItem
+                  key={project.path}
+                  project={project}
+                  isSelected={selectedPath === project.path}
+                  status={statuses[project.path] ?? 'stopped'}
+                  onSelect={() => onSelect(project.path)}
+                  onRemove={() => onRemove(project.path)}
+                  onStart={() => onStart(project.path)}
+                  onStop={() => onStop(project.path)}
+                />
+              ))
+            )}
           </div>
         </SortableContext>
       </DndContext>

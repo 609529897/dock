@@ -203,12 +203,41 @@ export default function App(): JSX.Element {
             </>
           ) : (
             <div className="empty-state">
-              <svg className="empty-icon" width="64" height="64" viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" opacity="0.35">
-                <path d="M8 20a4 4 0 0 1 4-4h14l6 6h24a4 4 0 0 1 4 4v24a4 4 0 0 1-4 4H12a4 4 0 0 1-4-4z" />
-                <path d="M8 28h48" strokeWidth="1.2" />
-              </svg>
-              <p className="empty-text">从左侧添加项目文件夹</p>
-              <p className="empty-hint">点击左侧添加按钮，或将文件夹拖拽到侧边栏添加</p>
+              <div className="empty-icon-wrap">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
+                  <line x1="12" y1="11" x2="12" y2="17" />
+                  <line x1="9" y1="14" x2="15" y2="14" />
+                </svg>
+              </div>
+              <div className="empty-content">
+                <p className="empty-title">还没有添加项目</p>
+                <p className="empty-hint">点击左侧 + 按钮或拖拽文件夹到侧边栏添加</p>
+              </div>
+              <div className="empty-steps">
+                <div className="empty-step">
+                  <span className="empty-step-num">1</span>
+                  <span>添加项目</span>
+                </div>
+                <span className="empty-step-arrow">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+                    <path d="M4.5 2.5L8 6l-3.5 3.5" />
+                  </svg>
+                </span>
+                <div className="empty-step">
+                  <span className="empty-step-num">2</span>
+                  <span>配置命令</span>
+                </div>
+                <span className="empty-step-arrow">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+                    <path d="M4.5 2.5L8 6l-3.5 3.5" />
+                  </svg>
+                </span>
+                <div className="empty-step">
+                  <span className="empty-step-num">3</span>
+                  <span>一键启动</span>
+                </div>
+              </div>
             </div>
           )}
         </main>
