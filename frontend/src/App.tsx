@@ -191,7 +191,11 @@ export default function App(): JSX.Element {
                     </div>
                   </div>
                 </div>
-                <LogPanel logs={logs[selectedProject.path] ?? []} status={statuses[selectedProject.path]} />
+                <LogPanel
+                  logs={logs[selectedProject.path] ?? []}
+                  status={statuses[selectedProject.path]}
+                  onClear={() => setLogs((prev) => ({ ...prev, [selectedProject.path]: [] }))}
+                />
               </div>
             </>
           ) : (

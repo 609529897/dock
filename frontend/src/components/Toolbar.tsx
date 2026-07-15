@@ -35,8 +35,8 @@ export default function Toolbar({ theme, onToggleTheme, onClearAll }: ToolbarPro
   return (
     <header className="toolbar">
       <div className="toolbar-brand">
-        <img src={logoIcon} alt="" className="toolbar-logo" />
-        <span className="toolbar-title">开发码头</span>
+        {/* <img src={logoIcon} alt="" className="toolbar-logo" /> */}
+        {/* <span className="toolbar-title">开发码头</span> */}
       </div>
       <div className="toolbar-right">
         <button className="btn-icon" onClick={onToggleTheme} title={theme === 'dark' ? '切换浅色主题' : '切换深色主题'}>

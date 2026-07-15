@@ -22,9 +22,9 @@
   --border-color: rgba(255, 255, 255, 0.08);
   --border-light: rgba(255, 255, 255, 0.04);
 
-  /* 交互色 - 橘色 */
-  --accent-blue: #ff6b35;
-  --accent-blue-hover: #ff7f4f;
+  /* 交互色 - 盐系淡蓝 */
+  --accent-blue: #60a5fa;
+  --accent-blue-hover: #7bb8fc;
 
   /* 状态指示 */
   --color-running: #30d158;
@@ -58,8 +58,8 @@
   --border-color: rgba(0, 0, 0, 0.07);
   --border-light: rgba(0, 0, 0, 0.04);
 
-  --accent-blue: #ff6b35;
-  --accent-blue-hover: #e85a24;
+  --accent-blue: #3b82f6;
+  --accent-blue-hover: #5595f7;
 
   --color-running: #22c55e;
   --color-stopped: #aeaeb2;

@@ -9,7 +9,7 @@ from pathlib import Path
 from PIL import Image, ImageDraw
 
 ROOT = Path(__file__).resolve().parent.parent
-ICONS = ROOT / "resources" / "icons"
+ICONS = ROOT / "resource" / "icons"
 
 APP_ICON_SIZE = 1024
 # Apple HIG 官方安全区域比例：核心内容限制在中心824px
@@ -110,7 +110,7 @@ def generate_app_icon_from_svg() -> None:
 
 def generate_icns() -> None:
     """生成iconset并打包icns文件，所有尺寸自动继承安全区+圆角"""
-    iconset_dir = ROOT / "resources" / "icon.iconset"
+    iconset_dir = ROOT / "resource" / "icon.iconset"
     iconset_dir.mkdir(exist_ok=True)
     src_1024 = ICONS / "icon-1024.png"
 
@@ -137,7 +137,7 @@ def generate_icns() -> None:
         )
     # 打包icns
     subprocess.run(
-        ["iconutil", "-c", "icns", str(iconset_dir), "-o", str(ROOT / "resources" / "icon.icns")],
+        ["iconutil", "-c", "icns", str(iconset_dir), "-o", str(ROOT / "resource" / "icon.icns")],
         check=True,
         capture_output=True
     )

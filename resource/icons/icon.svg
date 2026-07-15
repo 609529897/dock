@@ -17,11 +17,10 @@
       M 256 256 L 433.5 153.5
       M 444.5 172.55 L 422.5 134.45
     "
-    stroke="#ff6b35"
+    stroke="#60a5fa"
     stroke-width="24"
     stroke-linecap="round"
     stroke-linejoin="round"
   />
-  <!-- 中心舵盘 -->
-  <circle cx="256" cy="256" r="100" stroke="#ff6b35" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="256" cy="256" r="100" stroke="#60a5fa" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
