@@ -7,27 +7,34 @@
       <stop offset="75%" stop-color="#949494" />
       <stop offset="100%" stop-color="#3d3d3d" />
     </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.3" />
+    </filter>
   </defs>
+  <!-- 白色圆角背景 -->
+  <rect x="0" y="0" width="512" height="512" rx="112" fill="#ffffff" />
   <!-- 六辐条与把手 -->
-  <path
-    d="
-      M 256 256 L 433.5 358.5
-      M 422.5 377.55 L 444.5 339.45
-      M 256 256 L 256 461
-      M 234 461 L 278 461
-      M 256 256 L 78.5 358.5
-      M 67.5 339.45 L 89.5 377.55
-      M 256 256 L 78.5 153.5
-      M 89.5 134.45 L 67.5 172.55
-      M 256 256 L 256 51
-      M 278 51 L 234 51
-      M 256 256 L 433.5 153.5
-      M 444.5 172.55 L 422.5 134.45
-    "
-    stroke="url(#metal)"
-    stroke-width="24"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-  />
-  <circle cx="256" cy="256" r="100" stroke="url(#metal)" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
+  <g filter="url(#shadow)">
+    <path
+      d="
+        M 256 256 L 433.5 358.5
+        M 422.5 377.55 L 444.5 339.45
+        M 256 256 L 256 461
+        M 234 461 L 278 461
+        M 256 256 L 78.5 358.5
+        M 67.5 339.45 L 89.5 377.55
+        M 256 256 L 78.5 153.5
+        M 89.5 134.45 L 67.5 172.55
+        M 256 256 L 256 51
+        M 278 51 L 234 51
+        M 256 256 L 433.5 153.5
+        M 444.5 172.55 L 422.5 134.45
+      "
+      stroke="url(#metal)"
+      stroke-width="24"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <circle cx="256" cy="256" r="100" stroke="url(#metal)" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
 </svg>

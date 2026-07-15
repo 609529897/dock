@@ -206,7 +206,7 @@ input, textarea, .log-panel-content {
   align-items: center;
   gap: 8px;
   padding: 4px 10px 4px 12px;
-  border-radius: 12px;
+  border-radius: 6px;
   transition: background 0.1s, opacity 0.15s;
   margin-bottom: 2px;
   touch-action: none;
@@ -267,7 +267,6 @@ input, textarea, .log-panel-content {
   flex: 1;
   min-width: 0;
   font-size: 13px;
-  font-weight: 500;
   color: var(--text-secondary);
   white-space: nowrap;
   overflow: hidden;
@@ -278,7 +277,6 @@ input, textarea, .log-panel-content {
 
 .project-item-selected .project-item-name {
   color: var(--text-primary);
-  font-weight: 600;
 }
 
 /* ===== hover 操作按钮 ===== */
@@ -424,9 +422,7 @@ input, textarea, .log-panel-content {
   flex: 1;
   display: flex;
   flex-direction: column;
-  background: color-mix(in srgb, var(--bg-primary) 88%, transparent);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  background: var(--bg-primary);
   border: 1px solid var(--border-color);
   border-radius: 12px;
   overflow: hidden;
@@ -438,7 +434,7 @@ input, textarea, .log-panel-content {
   align-items: center;
   justify-content: space-between;
   padding: 8px 14px;
-  background: color-mix(in srgb, var(--bg-primary) 92%, transparent);
+  background: color-mix(in srgb, var(--bg-primary) 92%, var(--border-color));
   border-bottom: 1px solid var(--border-light);
   flex-shrink: 0;
 }
