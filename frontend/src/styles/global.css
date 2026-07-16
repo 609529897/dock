@@ -42,9 +42,10 @@ input, textarea, .log-panel-content {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 38px;
+  height: 36px;
   padding: 0 12px;
-  background: color-mix(in srgb, var(--bg-primary) 94%, transparent);
+  background: transparent;
+  border-bottom: 1px solid var(--border-color);
   flex-shrink: 0;
   --wails-draggable: drag;
 }
@@ -57,16 +58,16 @@ input, textarea, .log-panel-content {
 }
 
 .toolbar-logo {
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   flex-shrink: 0;
 }
 
 .toolbar-title {
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--text-primary);
-  letter-spacing: -0.2px;
+  letter-spacing: -0.1px;
 }
 
 .toolbar-right {
@@ -78,18 +79,17 @@ input, textarea, .log-panel-content {
 
 /* ===== 图标按钮 ===== */
 .btn-icon {
-  width: 30px;
-  height: 30px;
+  width: 24px;
+  height: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: transparent;
   border: none;
-  border-radius: 7px;
+  border-radius: 3px;
   cursor: pointer;
   color: var(--text-muted);
-  transition: background 0.15s, color 0.15s, transform 0.12s;
-  position: relative;
+  transition: color 0.08s;
 }
 
 .btn-icon svg {
@@ -97,29 +97,12 @@ input, textarea, .log-panel-content {
 }
 
 .btn-icon:hover {
-  background: var(--bg-hover);
-  color: var(--text-secondary);
-}
-
-.btn-icon:active {
-  transform: scale(0.9);
   color: var(--text-primary);
 }
 
-/* hover 时微弱的背景 */
-.btn-icon::after {
-  content: '';
-  position: absolute;
-  inset: 2px;
-  border-radius: 5px;
-  opacity: 0;
-  transition: opacity 0.15s;
-  background: var(--bg-hover);
-  pointer-events: none;
-}
-
-.btn-icon:hover::after {
-  opacity: 1;
+.btn-icon:active {
+  transform: scale(0.95);
+  color: var(--text-primary);
 }
 
 /* ===== 侧边栏 ===== */
@@ -205,13 +188,12 @@ input, textarea, .log-panel-content {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 4px 10px 4px 12px;
-  border-radius: 6px;
-  transition: background 0.1s, opacity 0.15s;
-  margin-bottom: 2px;
+  padding: 5px 8px;
+  border-radius: 4px;
+  transition: background 0.08s;
+  margin-bottom: 1px;
   touch-action: none;
   cursor: default;
-  position: relative;
 }
 
 .project-item:hover {
@@ -228,39 +210,31 @@ input, textarea, .log-panel-content {
 }
 
 .project-item-selected:hover {
-  background: color-mix(in srgb, var(--bg-primary) 85%, var(--accent-blue) 15%);
+  background: var(--bg-hover);
 }
 
 .project-item-selected .project-item-name {
-  font-weight: normal;
+  color: var(--text-primary);
+  font-weight: 500;
 }
 
 .project-item-dragging {
-  opacity: 0.55;
+  opacity: 0.5;
   background: var(--bg-hover);
-  z-index: 10;
-  box-shadow: var(--shadow-md);
 }
 
 .project-status-dot {
-  width: 7px;
-  height: 7px;
-  min-width: 7px;
+  width: 6px;
+  height: 6px;
+  min-width: 6px;
   border-radius: 50%;
   background: var(--color-stopped);
   flex-shrink: 0;
-  transition: background 0.25s, box-shadow 0.25s;
 }
 
 .project-status-dot.running {
   background: var(--color-running);
-  box-shadow: 0 0 6px color-mix(in srgb, var(--color-running) 50%, transparent);
-  animation: dot-pulse 2s ease-in-out infinite;
-}
-
-@keyframes dot-pulse {
-  0%, 100% { box-shadow: 0 0 4px color-mix(in srgb, var(--color-running) 25%, transparent); }
-  50% { box-shadow: 0 0 10px color-mix(in srgb, var(--color-running) 55%, transparent); }
+  box-shadow: 0 0 4px color-mix(in srgb, var(--color-running) 40%, transparent);
 }
 
 .project-item-name {
@@ -271,22 +245,16 @@ input, textarea, .log-panel-content {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  line-height: 1.3;
-  transition: color 0.2s, font-weight 0.1s;
-}
-
-.project-item-selected .project-item-name {
-  color: var(--text-primary);
+  line-height: 1.4;
 }
 
 /* ===== hover 操作按钮 ===== */
 .project-item-hover-actions {
   display: flex;
   align-items: center;
-  gap: 6px;
-  margin-left: 6px;
+  gap: 2px;
   opacity: 0;
-  transition: opacity 0.12s;
+  transition: opacity 0.1s;
   flex-shrink: 0;
 }
 
@@ -295,35 +263,26 @@ input, textarea, .log-panel-content {
 }
 
 .project-item-action-btn {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: transparent;
   border: none;
-  border-radius: 5px;
+  border-radius: 3px;
   cursor: pointer;
   color: var(--text-muted);
-  transition: background 0.12s, color 0.12s;
+  transition: color 0.08s;
   flex-shrink: 0;
 }
 
 .project-item-action-btn:hover {
-  background: color-mix(in srgb, var(--text-primary) 10%, transparent);
-  color: var(--text-secondary);
-}
-
-.project-item:hover .project-item-action-btn {
-  color: var(--text-muted);
-}
-
-.project-item:hover .project-item-action-btn:hover {
-  color: var(--text-secondary);
+  color: var(--text-primary);
 }
 
 .project-item-action-btn:active {
-  transform: scale(0.9);
+  transform: scale(0.95);
 }
 
 .project-item-action-btn:disabled {
@@ -333,7 +292,6 @@ input, textarea, .log-panel-content {
 }
 
 .project-item-action-btn.project-item-remove:hover {
-  background: color-mix(in srgb, var(--color-error) 15%, transparent);
   color: var(--color-error);
 }
 
@@ -423,32 +381,29 @@ input, textarea, .log-panel-content {
   flex: 1;
   display: flex;
   flex-direction: column;
-  background: var(--bg-primary);
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
   overflow: hidden;
   min-height: 140px;
+  background: transparent;
+  border: none;
+  border-radius: 0;
 }
 
 .log-panel-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 14px;
-  background: color-mix(in srgb, var(--bg-primary) 92%, var(--border-color));
-  border-bottom: 1px solid var(--border-light);
+  padding: 6px 0;
   flex-shrink: 0;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .log-panel-title {
   display: flex;
   align-items: center;
-  gap: 7px;
-  font-size: 10px;
-  font-weight: 600;
-  color: var(--text-secondary);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-muted);
 }
 
 .log-indicator {
@@ -457,52 +412,48 @@ input, textarea, .log-panel-content {
   border-radius: 50%;
   background: var(--color-stopped);
   flex-shrink: 0;
-  transition: background 0.25s;
 }
 
 .log-indicator.running {
   background: var(--color-running);
-  box-shadow: 0 0 5px color-mix(in srgb, var(--color-running) 50%, transparent);
-  animation: pulse-dot 2s ease-in-out infinite;
 }
 
 .log-panel-count {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 11px;
   color: var(--text-muted);
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
 }
 
 .log-btn-clear {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   background: transparent;
   border: none;
-  border-radius: 4px;
+  border-radius: 3px;
   cursor: pointer;
   color: var(--text-muted);
-  transition: background 0.12s, color 0.12s;
+  transition: color 0.08s;
 }
 
 .log-btn-clear:hover {
-  background: var(--bg-hover);
-  color: var(--text-secondary);
+  color: var(--text-primary);
 }
 
 .log-panel-content {
   flex: 1;
   overflow-y: auto;
-  padding: 12px 14px;
+  padding: 10px 0;
   font-family: var(--font-mono);
   font-size: 12px;
   line-height: 1.6;
-  background: var(--glass-terminal);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  background: transparent;
+  box-shadow: none;
 }
 
 .log-panel-content::-webkit-scrollbar {
@@ -521,7 +472,7 @@ input, textarea, .log-panel-content {
 .log-empty {
   color: var(--text-muted);
   font-family: var(--font-sans);
-  font-size: 13px;
+  font-size: 12px;
   text-align: center;
   padding: 48px 0;
 }
