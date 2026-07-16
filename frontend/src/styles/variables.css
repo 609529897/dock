@@ -22,7 +22,7 @@
   --accent-blue-hover: #b8b8be;
 
   /* 状态指示 */
-  --color-running: #4caf50;
+  --color-running: #526136;
   --color-stopped: #505050;
   --color-error: #e74c3c;
 
@@ -53,7 +53,7 @@
   --accent-blue: #888890;
   --accent-blue-hover: #66666e;
 
-  --color-running: #43a047;
+  --color-running: #7AA821;
   --color-stopped: #bdbdbd;
   --color-error: #e53935;
 
