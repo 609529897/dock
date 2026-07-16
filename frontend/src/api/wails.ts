@@ -1,4 +1,4 @@
-import type { ProjectConfig, LogEntry, ProcessStatus } from '../shared/types'
+import type { ProjectConfig, LogEntry, ProcessStatus, EditorInfo } from '../shared/types'
 
 export const api = {
   getProjects: (): Promise<ProjectConfig[]> => window.go.main.App.GetProjects(),
@@ -24,6 +24,12 @@ export const api = {
   setTheme: (theme: string) => window.go.main.App.SetTheme(theme),
 
   selectFolder: (): Promise<string> => window.go.main.App.SelectFolder(),
+
+  openInEditor: (projectPath: string, editor: string) =>
+    window.go.main.App.OpenInEditor(projectPath, editor),
+
+  getAvailableEditors: (): Promise<EditorInfo[]> =>
+    window.go.main.App.GetAvailableEditors(),
 
   onProjectLog: (callback: (log: LogEntry) => void) => {
     window.runtime.EventsOn('project:log', callback)

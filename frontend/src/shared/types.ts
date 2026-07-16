@@ -27,3 +27,13 @@ export interface StartProjectResult {
   success: boolean
   error?: string
 }
+
+export interface OpenInEditorResult {
+  success: boolean
+  error?: string
+}
+
+export interface EditorInfo {
+  name: string
+  label: string
+}

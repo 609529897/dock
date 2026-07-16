@@ -1,6 +1,7 @@
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import type { ProjectConfig, ProcessStatus } from '../shared/types'
+import EditorPicker from './EditorPicker'
 
 interface ProjectItemProps {
   project: ProjectConfig
@@ -10,6 +11,7 @@ interface ProjectItemProps {
   onRemove: () => void
   onStart: () => void
   onStop: () => void
+  onOpenInEditor: (path: string, editor: string) => void
 }
 
 function PlayIcon(): JSX.Element {
@@ -28,6 +30,15 @@ function StopIcon(): JSX.Element {
   )
 }
 
+function CodeIcon(): JSX.Element {
+  return (
+    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M3.5 2.5L1.5 5l2 2.5" />
+      <path d="M6.5 2.5l2 2.5-2 2.5" />
+    </svg>
+  )
+}
+
 export default function ProjectItem({
   project,
   isSelected,
@@ -35,7 +46,8 @@ export default function ProjectItem({
   onSelect,
   onRemove,
   onStart,
-  onStop
+  onStop,
+  onOpenInEditor
 }: ProjectItemProps): JSX.Element {
   const isRunning = status === 'running'
   const isStarting = status === 'starting'
@@ -91,6 +103,18 @@ export default function ProjectItem({
             <PlayIcon />
           )}
         </button>
+        <EditorPicker
+          projectPath={project.path}
+          onOpen={onOpenInEditor}
+          trigger={
+            <button
+              className="project-item-action-btn project-item-code"
+              title="用编辑器打开"
+            >
+              <CodeIcon />
+            </button>
+          }
+        />
         <button
           className="project-item-action-btn project-item-remove"
           onClick={(e) => {

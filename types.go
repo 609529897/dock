@@ -40,3 +40,13 @@ type StartProjectResult struct {
 	Success bool   `json:"success"`
 	Error   string `json:"error,omitempty"`
 }
+
+type OpenInEditorResult struct {
+	Success bool   `json:"success"`
+	Error   string `json:"error,omitempty"`
+}
+
+type EditorInfo struct {
+	Name  string `json:"name"`
+	Label string `json:"label"`
+}

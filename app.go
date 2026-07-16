@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"os"
+	"os/exec"
 	"path/filepath"
 
 	"github.com/wailsapp/wails/v2/pkg/runtime"
@@ -111,4 +112,48 @@ func (a *App) SelectFolder() string {
 		return ""
 	}
 	return selected
+}
+
+func (a *App) OpenInEditor(projectPath string, editor string) OpenInEditorResult {
+	cmd := exec.Command(editor, projectPath)
+	if err := cmd.Run(); err == nil {
+		return OpenInEditorResult{Success: true}
+	}
+	return OpenInEditorResult{Success: false, Error: "无法打开编辑器"}
+}
+
+func (a *App) GetAvailableEditors() []EditorInfo {
+	type editorCandidate struct {
+		Info   EditorInfo
+		Paths  []string
+	}
+	candidates := []editorCandidate{
+		{Info: EditorInfo{Name: "code", Label: "VS Code"}, Paths: []string{"code", "/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code"}},
+		{Info: EditorInfo{Name: "cursor", Label: "Cursor"}, Paths: []string{"cursor", "/Applications/Cursor.app/Contents/Resources/app/bin/cursor"}},
+		{Info: EditorInfo{Name: "trae", Label: "Trae"}, Paths: []string{"trae", "/Applications/Trae.app/Contents/Resources/app/bin/trae", "/Applications/Trae AI.app/Contents/Resources/app/bin/trae"}},
+		{Info: EditorInfo{Name: "windsurf", Label: "Windsurf"}, Paths: []string{"windsurf", "/Applications/Windsurf.app/Contents/Resources/app/bin/windsurf"}},
+		{Info: EditorInfo{Name: "open", Label: "访达（Finder）"}, Paths: []string{"open"}},
+	}
+	available := []EditorInfo{}
+	for _, c := range candidates {
+		if c.Info.Name == "open" {
+			available = append(available, c.Info)
+			continue
+		}
+		found := false
+		for _, p := range c.Paths {
+			if _, err := exec.LookPath(p); err == nil {
+				found = true
+				break
+			}
+			if _, err := os.Stat(p); err == nil {
+				found = true
+				break
+			}
+		}
+		if found {
+			available = append(available, c.Info)
+		}
+	}
+	return available
 }

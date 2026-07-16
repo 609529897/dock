@@ -10,12 +10,20 @@ export function GetAllStatuses() {
   return window['go']['main']['App']['GetAllStatuses']();
 }
 
+export function GetAvailableEditors() {
+  return window['go']['main']['App']['GetAvailableEditors']();
+}
+
 export function GetProjects() {
   return window['go']['main']['App']['GetProjects']();
 }
 
 export function GetTheme() {
   return window['go']['main']['App']['GetTheme']();
+}
+
+export function OpenInEditor(arg1, arg2) {
+  return window['go']['main']['App']['OpenInEditor'](arg1, arg2);
 }
 
 export function RemoveProject(arg1) {

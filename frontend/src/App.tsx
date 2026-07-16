@@ -4,6 +4,7 @@ import { api } from './api/wails'
 import Sidebar from './components/Sidebar'
 import LogPanel from './components/LogPanel'
 import Toolbar from './components/Toolbar'
+import EditorPicker from './components/EditorPicker'
 import './App.css'
 
 export default function App(): JSX.Element {
@@ -123,6 +124,10 @@ export default function App(): JSX.Element {
     await api.stopProject(projectPath)
   }, [])
 
+  const handleOpenInEditor = useCallback((projectPath: string, editor: string) => {
+    api.openInEditor(projectPath, editor)
+  }, [])
+
   return (
     <div className="app">
       <div className="app-sidebar-column">
@@ -137,6 +142,7 @@ export default function App(): JSX.Element {
           onReorder={handleReorderProjects}
           onStart={handleStart}
           onStop={handleStop}
+          onOpenInEditor={handleOpenInEditor}
         />
       </div>
       <div className="app-main-column">
@@ -164,6 +170,21 @@ export default function App(): JSX.Element {
                     <span className="project-path-label">{selectedProject.path}</span>
                   </div>
                 </div>
+                <EditorPicker
+                  projectPath={selectedProject.path}
+                  onOpen={handleOpenInEditor}
+                  trigger={
+                    <button
+                      className="btn-open-editor"
+                      title="用编辑器打开"
+                    >
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M5 3L2 8l3 5" />
+                        <path d="M11 3l3 5-3 5" />
+                      </svg>
+                    </button>
+                  }
+                />
               </div>
               <div className="project-detail-body">
                 <div className="command-section">

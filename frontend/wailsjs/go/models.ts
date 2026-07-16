@@ -14,6 +14,34 @@ export namespace main {
 	        this.error = source["error"];
 	    }
 	}
+	export class EditorInfo {
+	    name: string;
+	    label: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new EditorInfo(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.name = source["name"];
+	        this.label = source["label"];
+	    }
+	}
+	export class OpenInEditorResult {
+	    success: boolean;
+	    error?: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new OpenInEditorResult(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.success = source["success"];
+	        this.error = source["error"];
+	    }
+	}
 	export class ProjectConfig {
 	    path: string;
 	    name: string;

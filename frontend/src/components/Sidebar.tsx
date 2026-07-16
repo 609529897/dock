@@ -28,6 +28,7 @@ interface SidebarProps {
   onReorder: (projects: ProjectConfig[]) => Promise<void>
   onStart: (path: string) => Promise<void>
   onStop: (path: string) => Promise<void>
+  onOpenInEditor: (path: string, editor: string) => void
 }
 
 function arrayMove<T>(array: T[], from: number, to: number): T[] {
@@ -51,7 +52,8 @@ export default function Sidebar({
   onRemove,
   onReorder,
   onStart,
-  onStop
+  onStop,
+  onOpenInEditor
 }: SidebarProps): JSX.Element {
   const [error, setError] = useState<string | null>(null)
 
@@ -126,6 +128,7 @@ export default function Sidebar({
                   onRemove={() => onRemove(project.path)}
                   onStart={() => onStart(project.path)}
                   onStop={() => onStop(project.path)}
+                  onOpenInEditor={onOpenInEditor}
                 />
               ))
             )}

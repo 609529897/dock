@@ -73,6 +73,28 @@
   max-width: 400px;
 }
 
+.btn-open-editor {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+  margin-left: 8px;
+  margin-top: 2px;
+}
+
+.btn-open-editor:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
 .project-detail-body {
   flex: 1;
   display: flex;

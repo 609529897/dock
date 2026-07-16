@@ -6,9 +6,13 @@ export function AddProject(arg1:string):Promise<main.AddProjectResult>;
 
 export function GetAllStatuses():Promise<Record<string, main.ProcessStatus>>;
 
+export function GetAvailableEditors():Promise<Array<main.EditorInfo>>;
+
 export function GetProjects():Promise<Array<main.ProjectConfig>>;
 
 export function GetTheme():Promise<string>;
+
+export function OpenInEditor(arg1:string,arg2:string):Promise<main.OpenInEditorResult>;
 
 export function RemoveProject(arg1:string):Promise<void>;
 
