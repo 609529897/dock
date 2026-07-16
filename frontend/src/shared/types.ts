@@ -36,4 +36,5 @@ export interface OpenInEditorResult {
 export interface EditorInfo {
   name: string
   label: string
+  path: string
 }

@@ -33,7 +33,7 @@ export default function EditorPicker({ projectPath, onOpen, trigger }: EditorPic
             <DropdownMenu.Item
               key={e.name}
               className="editor-picker-item"
-              onClick={() => onOpen(projectPath, e.name)}
+              onClick={() => onOpen(projectPath, e.path)}
             >
               <EditorIcon name={e.name} />
               {e.label}

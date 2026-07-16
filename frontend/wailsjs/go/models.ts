@@ -17,6 +17,7 @@ export namespace main {
 	export class EditorInfo {
 	    name: string;
 	    label: string;
+	    path: string;
 	
 	    static createFrom(source: any = {}) {
 	        return new EditorInfo(source);
@@ -26,6 +27,7 @@ export namespace main {
 	        if ('string' === typeof source) source = JSON.parse(source);
 	        this.name = source["name"];
 	        this.label = source["label"];
+	        this.path = source["path"];
 	    }
 	}
 	export class OpenInEditorResult {

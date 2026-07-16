@@ -114,8 +114,8 @@ func (a *App) SelectFolder() string {
 	return selected
 }
 
-func (a *App) OpenInEditor(projectPath string, editor string) OpenInEditorResult {
-	cmd := exec.Command(editor, projectPath)
+func (a *App) OpenInEditor(projectPath string, editorPath string) OpenInEditorResult {
+	cmd := exec.Command(editorPath, projectPath)
 	if err := cmd.Run(); err == nil {
 		return OpenInEditorResult{Success: true}
 	}
@@ -124,8 +124,8 @@ func (a *App) OpenInEditor(projectPath string, editor string) OpenInEditorResult
 
 func (a *App) GetAvailableEditors() []EditorInfo {
 	type editorCandidate struct {
-		Info   EditorInfo
-		Paths  []string
+		Info  EditorInfo
+		Paths []string
 	}
 	candidates := []editorCandidate{
 		{Info: EditorInfo{Name: "code", Label: "VS Code"}, Paths: []string{"code", "/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code"}},
@@ -137,21 +137,23 @@ func (a *App) GetAvailableEditors() []EditorInfo {
 	available := []EditorInfo{}
 	for _, c := range candidates {
 		if c.Info.Name == "open" {
+			c.Info.Path = "open"
 			available = append(available, c.Info)
 			continue
 		}
-		found := false
+		foundPath := ""
 		for _, p := range c.Paths {
-			if _, err := exec.LookPath(p); err == nil {
-				found = true
+			if resolved, err := exec.LookPath(p); err == nil {
+				foundPath = resolved
 				break
 			}
 			if _, err := os.Stat(p); err == nil {
-				found = true
+				foundPath = p
 				break
 			}
 		}
-		if found {
+		if foundPath != "" {
+			c.Info.Path = foundPath
 			available = append(available, c.Info)
 		}
 	}

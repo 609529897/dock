@@ -49,4 +49,5 @@ type OpenInEditorResult struct {
 type EditorInfo struct {
 	Name  string `json:"name"`
 	Label string `json:"label"`
+	Path  string `json:"path"`
 }
