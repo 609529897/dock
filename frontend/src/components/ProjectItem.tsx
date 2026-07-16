@@ -80,7 +80,7 @@ export default function ProjectItem({
       {...listeners}
     >
       <span className={`project-status-dot ${isRunning ? 'running' : ''}`} />
-      <span className="project-item-name">{project.name}</span>
+      <span className="project-item-name" title={project.name}>{project.name}</span>
       <div className="project-item-hover-actions">
         <button
           className="project-item-action-btn"
