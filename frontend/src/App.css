@@ -130,8 +130,8 @@
 
 .command-input {
   flex: 1;
-  height: 30px;
-  padding: 0 10px;
+  height: 34px;
+  padding: 0 12px;
   font-size: 13px;
   font-family: var(--font-mono);
   color: var(--text-primary);
@@ -155,9 +155,9 @@
 }
 
 .btn-action {
-  height: 30px;
-  padding: 0 14px;
-  font-size: 12px;
+  height: 34px;
+  padding: 0 20px;
+  font-size: 13px;
   font-weight: 500;
   border: 1px solid;
   border-radius: 3px;
@@ -172,21 +172,23 @@
 }
 
 .btn-start {
-  color: var(--color-running);
+  background: var(--color-running);
+  color: #fff;
   border-color: var(--color-running);
 }
 
 .btn-start:hover {
-  background: color-mix(in srgb, var(--color-running) 10%, transparent);
+  opacity: 0.9;
 }
 
 .btn-stop {
-  color: var(--color-error);
+  background: var(--color-error);
+  color: #fff;
   border-color: var(--color-error);
 }
 
 .btn-stop:hover {
-  background: color-mix(in srgb, var(--color-error) 10%, transparent);
+  opacity: 0.9;
 }
 
 /* ===== 状态指示圆点（详情头部） ===== */
