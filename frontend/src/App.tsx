@@ -55,6 +55,20 @@ export default function App(): JSX.Element {
     return unsub
   }, [])
 
+  useEffect(() => {
+    if (!selectedPath || !selectedProject || selectedProject.devUrl) return
+
+    const path = selectedPath
+    api.detectDevUrl(path).then((url) => {
+      if (url && selectedPath === path) {
+        api.updateProject(path, { devUrl: url })
+        setProjects((prev) =>
+          prev.map((p) => (p.path === path ? { ...p, devUrl: url } : p))
+        )
+      }
+    })
+  }, [selectedPath, selectedProject?.devUrl])
+
   const toggleTheme = useCallback(async () => {
     const next = theme === 'dark' ? 'light' : 'dark'
     setTheme(next)
@@ -128,6 +142,10 @@ export default function App(): JSX.Element {
     api.openInEditor(projectPath, editor)
   }, [])
 
+  const handleOpenInBrowser = useCallback((url: string) => {
+    api.openInBrowser(url)
+  }, [])
+
   return (
     <div className="app">
       <div className="app-sidebar-column">
@@ -170,21 +188,37 @@ export default function App(): JSX.Element {
                     <span className="project-path-label">{selectedProject.path}</span>
                   </div>
                 </div>
-                <EditorPicker
-                  projectPath={selectedProject.path}
-                  onOpen={handleOpenInEditor}
-                  trigger={
+                <div className="project-header-actions">
+                  <EditorPicker
+                    projectPath={selectedProject.path}
+                    onOpen={handleOpenInEditor}
+                    trigger={
+                      <button
+                        className="btn-open-editor"
+                        title="用编辑器打开"
+                      >
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M5 3L2 8l3 5" />
+                          <path d="M11 3l3 5-3 5" />
+                        </svg>
+                      </button>
+                    }
+                  />
+                  {selectedProject.devUrl && (
                     <button
-                      className="btn-open-editor"
-                      title="用编辑器打开"
+                      className="btn-open-browser"
+                      onClick={() => handleOpenInBrowser(selectedProject.devUrl)}
+                      title="在浏览器中打开"
                     >
                       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M5 3L2 8l3 5" />
-                        <path d="M11 3l3 5-3 5" />
+                        <path d="M8 2a6 6 0 1 0 0 12A6 6 0 0 0 8 2z" />
+                        <path d="M2 8h12" />
+                        <path d="M8 2a9 9 0 0 1 0 12 9 9 0 0 1 0-12z" />
                       </svg>
                     </button>
-                  }
-                />
+                  )}
+
+                </div>
               </div>
               <div className="project-detail-body">
                 <div className="command-section">

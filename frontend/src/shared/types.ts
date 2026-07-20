@@ -2,6 +2,7 @@ export interface ProjectConfig {
   path: string
   name: string
   command: string
+  devUrl: string
 }
 
 export interface StoreData {
@@ -29,6 +30,11 @@ export interface StartProjectResult {
 }
 
 export interface OpenInEditorResult {
+  success: boolean
+  error?: string
+}
+
+export interface OpenInBrowserResult {
   success: boolean
   error?: string
 }

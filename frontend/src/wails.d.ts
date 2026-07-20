@@ -1,4 +1,4 @@
-import type { ProjectConfig, ProcessStatus, AddProjectResult, StartProjectResult, OpenInEditorResult, EditorInfo } from './shared/types'
+import type { ProjectConfig, ProcessStatus, AddProjectResult, StartProjectResult, OpenInEditorResult, OpenInBrowserResult, EditorInfo } from './shared/types'
 
 declare global {
   interface Window {
@@ -17,7 +17,9 @@ declare global {
           SetTheme: (theme: string) => Promise<void>
           SelectFolder: () => Promise<string>
           OpenInEditor: (projectPath: string, editor: string) => Promise<OpenInEditorResult>
+          OpenInBrowser: (url: string) => Promise<OpenInBrowserResult>
           GetAvailableEditors: () => Promise<EditorInfo[]>
+          DetectDevUrl: (projectPath: string) => Promise<string>
         }
       }
     }

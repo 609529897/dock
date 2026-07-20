@@ -2,9 +2,14 @@ package main
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 	"os"
 	"os/exec"
 	"path/filepath"
+	"regexp"
+	"strconv"
+	"strings"
 
 	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
@@ -45,6 +50,7 @@ func (a *App) AddProject(folderPath string) AddProjectResult {
 		Path:    folderPath,
 		Name:    filepath.Base(folderPath),
 		Command: "yarn run dev",
+		DevUrl:  a.DetectDevUrl(folderPath),
 	}
 	if !store.AddProject(config) {
 		return AddProjectResult{Success: false, Error: "该项目已存在列表中"}
@@ -114,6 +120,17 @@ func (a *App) SelectFolder() string {
 	return selected
 }
 
+func (a *App) OpenInBrowser(url string) OpenInBrowserResult {
+	if url == "" {
+		return OpenInBrowserResult{Success: false, Error: "地址为空"}
+	}
+	cmd := exec.Command("open", url)
+	if err := cmd.Run(); err == nil {
+		return OpenInBrowserResult{Success: true}
+	}
+	return OpenInBrowserResult{Success: false, Error: "无法打开浏览器"}
+}
+
 func (a *App) OpenInEditor(projectPath string, editorPath string) OpenInEditorResult {
 	cmd := exec.Command(editorPath, projectPath)
 	if err := cmd.Run(); err == nil {
@@ -158,4 +175,190 @@ func (a *App) GetAvailableEditors() []EditorInfo {
 		}
 	}
 	return available
+}
+
+func (a *App) DetectDevUrl(projectPath string) string {
+	packageJsonPath := filepath.Join(projectPath, "package.json")
+	data, err := os.ReadFile(packageJsonPath)
+	if err != nil {
+		return ""
+	}
+
+	var pkg struct {
+		Scripts         map[string]string `json:"scripts"`
+		Dependencies    map[string]string `json:"dependencies"`
+		DevDependencies map[string]string `json:"devDependencies"`
+	}
+	if err := json.Unmarshal(data, &pkg); err != nil {
+		return ""
+	}
+
+	framework := ""
+	port := 0
+	allDeps := make(map[string]string)
+	for k, v := range pkg.Dependencies {
+		allDeps[k] = v
+	}
+	for k, v := range pkg.DevDependencies {
+		allDeps[k] = v
+	}
+
+	for _, scriptName := range []string{"dev", "start", "serve"} {
+		cmd := pkg.Scripts[scriptName]
+		if cmd == "" {
+			continue
+		}
+		if p := parsePortFromCommand(cmd); p > 0 {
+			port = p
+		}
+		if f := detectFrameworkFromCommand(cmd, allDeps); f != "" {
+			framework = f
+			break
+		}
+	}
+
+	if framework == "" {
+		framework = detectFrameworkFromDeps(allDeps)
+	}
+
+	if port == 0 {
+		port = parsePortFromConfigFiles(projectPath, framework)
+	}
+	if port == 0 {
+		port = defaultPortForFramework(framework)
+	}
+	if port == 0 {
+		return ""
+	}
+
+	return fmt.Sprintf("http://localhost:%d", port)
+}
+
+func detectFrameworkFromCommand(cmd string, deps map[string]string) string {
+	lower := strings.ToLower(cmd)
+	patterns := []struct {
+		key   string
+		name  string
+		dep   string
+	}{
+		{"vite", "vite", "vite"},
+		{"next", "next", "next"},
+		{"nuxt", "nuxt", "nuxt"},
+		{"vue-cli-service", "vue-cli", "@vue/cli-service"},
+		{"react-scripts", "cra", "react-scripts"},
+		{"astro", "astro", "astro"},
+		{"gatsby", "gatsby", "gatsby"},
+		{"svelte-kit", "sveltekit", "@sveltejs/kit"},
+		{"remix", "remix", "@remix-run/dev"},
+		{"quasar", "quasar", "quasar"},
+	}
+	for _, p := range patterns {
+		if strings.Contains(lower, p.key) {
+			return p.name
+		}
+		if _, ok := deps[p.dep]; ok {
+			return p.name
+		}
+	}
+	return ""
+}
+
+func detectFrameworkFromDeps(deps map[string]string) string {
+	checks := []struct {
+		dep  string
+		name string
+	}{
+		{"vite", "vite"},
+		{"@sveltejs/kit", "sveltekit"},
+		{"next", "next"},
+		{"nuxt", "nuxt"},
+		{"@vue/cli-service", "vue-cli"},
+		{"vue-cli-service", "vue-cli"},
+		{"react-scripts", "cra"},
+		{"astro", "astro"},
+		{"gatsby", "gatsby"},
+		{"@remix-run/dev", "remix"},
+		{"quasar", "quasar"},
+	}
+	for _, c := range checks {
+		if _, ok := deps[c.dep]; ok {
+			return c.name
+		}
+	}
+	return ""
+}
+
+func parsePortFromCommand(cmd string) int {
+	re := regexp.MustCompile(`(?:--port|-p)\s*(?:=|\s)?\s*(\d+)`)
+	matches := re.FindStringSubmatch(cmd)
+	if len(matches) >= 2 {
+		if p, err := strconv.Atoi(matches[1]); err == nil {
+			return p
+		}
+	}
+	return 0
+}
+
+func parsePortFromConfigFiles(projectPath, framework string) int {
+	configs := map[string]struct {
+		files []string
+		regex string
+	}{
+		"vite": {
+			files: []string{"vite.config.js", "vite.config.ts", "vite.config.mjs", "vite.config.cjs"},
+			regex: `server\s*:\s*\{[^}]*?port\s*:\s*(\d+)`,
+		},
+		"next": {
+			files: []string{"next.config.js", "next.config.ts", "next.config.mjs"},
+			regex: `port\s*:\s*(\d+)`,
+		},
+		"vue-cli": {
+			files: []string{"vue.config.js", "vue.config.ts"},
+			regex: `devServer\s*:\s*\{[^}]*?port\s*:\s*(\d+)`,
+		},
+		"nuxt": {
+			files: []string{"nuxt.config.js", "nuxt.config.ts", "nuxt.config.mjs"},
+			regex: `devServer\s*:\s*\{[^}]*?port\s*:\s*(\d+)`,
+		},
+		"astro": {
+			files: []string{"astro.config.mjs", "astro.config.js", "astro.config.ts"},
+			regex: `server\s*:\s*\{[^}]*?port\s*:\s*(\d+)`,
+		},
+	}
+
+	cfg, ok := configs[framework]
+	if !ok {
+		return 0
+	}
+
+	re := regexp.MustCompile(cfg.regex)
+	for _, file := range cfg.files {
+		data, err := os.ReadFile(filepath.Join(projectPath, file))
+		if err != nil {
+			continue
+		}
+		matches := re.FindStringSubmatch(string(data))
+		if len(matches) >= 2 {
+			if p, err := strconv.Atoi(matches[1]); err == nil {
+				return p
+			}
+		}
+	}
+	return 0
+}
+
+func defaultPortForFramework(framework string) int {
+	switch framework {
+	case "vite", "sveltekit":
+		return 5173
+	case "next", "nuxt", "cra", "remix":
+		return 3000
+	case "vue-cli", "quasar":
+		return 8080
+	case "gatsby":
+		return 8000
+	case "astro":
+		return 4321
+	}
+	return 0
 }

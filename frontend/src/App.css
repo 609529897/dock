@@ -92,6 +92,32 @@
   color: var(--text-primary);
 }
 
+.project-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.btn-open-browser {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border: none;
+  border-radius: 3px;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.08s;
+}
+
+.btn-open-browser:hover {
+  color: var(--text-primary);
+}
+
 .project-detail-body {
   flex: 1;
   display: flex;

@@ -6,6 +6,10 @@ export function AddProject(arg1) {
   return window['go']['main']['App']['AddProject'](arg1);
 }
 
+export function DetectDevUrl(arg1) {
+  return window['go']['main']['App']['DetectDevUrl'](arg1);
+}
+
 export function GetAllStatuses() {
   return window['go']['main']['App']['GetAllStatuses']();
 }
@@ -20,6 +24,10 @@ export function GetProjects() {
 
 export function GetTheme() {
   return window['go']['main']['App']['GetTheme']();
+}
+
+export function OpenInBrowser(arg1) {
+  return window['go']['main']['App']['OpenInBrowser'](arg1);
 }
 
 export function OpenInEditor(arg1, arg2) {

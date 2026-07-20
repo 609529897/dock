@@ -25,11 +25,16 @@ export const api = {
 
   selectFolder: (): Promise<string> => window.go.main.App.SelectFolder(),
 
+  openInBrowser: (url: string) => window.go.main.App.OpenInBrowser(url),
+
   openInEditor: (projectPath: string, editor: string) =>
     window.go.main.App.OpenInEditor(projectPath, editor),
 
   getAvailableEditors: (): Promise<EditorInfo[]> =>
     window.go.main.App.GetAvailableEditors(),
+
+  detectDevUrl: (projectPath: string): Promise<string> =>
+    window.go.main.App.DetectDevUrl(projectPath),
 
   onProjectLog: (callback: (log: LogEntry) => void) => {
     window.runtime.EventsOn('project:log', callback)

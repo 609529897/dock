@@ -4,6 +4,7 @@ type ProjectConfig struct {
 	Path    string `json:"path"`
 	Name    string `json:"name"`
 	Command string `json:"command"`
+	DevUrl  string `json:"devUrl"`
 }
 
 type StoreData struct {
@@ -29,6 +30,7 @@ const (
 type ProjectConfigUpdate struct {
 	Name    *string `json:"name,omitempty"`
 	Command *string `json:"command,omitempty"`
+	DevUrl  *string `json:"devUrl,omitempty"`
 }
 
 type AddProjectResult struct {
@@ -42,6 +44,11 @@ type StartProjectResult struct {
 }
 
 type OpenInEditorResult struct {
+	Success bool   `json:"success"`
+	Error   string `json:"error,omitempty"`
+}
+
+type OpenInBrowserResult struct {
 	Success bool   `json:"success"`
 	Error   string `json:"error,omitempty"`
 }

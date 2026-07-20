@@ -30,6 +30,20 @@ export namespace main {
 	        this.path = source["path"];
 	    }
 	}
+	export class OpenInBrowserResult {
+	    success: boolean;
+	    error?: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new OpenInBrowserResult(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.success = source["success"];
+	        this.error = source["error"];
+	    }
+	}
 	export class OpenInEditorResult {
 	    success: boolean;
 	    error?: string;
@@ -48,6 +62,7 @@ export namespace main {
 	    path: string;
 	    name: string;
 	    command: string;
+	    devUrl: string;
 	
 	    static createFrom(source: any = {}) {
 	        return new ProjectConfig(source);
@@ -58,11 +73,13 @@ export namespace main {
 	        this.path = source["path"];
 	        this.name = source["name"];
 	        this.command = source["command"];
+	        this.devUrl = source["devUrl"];
 	    }
 	}
 	export class ProjectConfigUpdate {
 	    name?: string;
 	    command?: string;
+	    devUrl?: string;
 	
 	    static createFrom(source: any = {}) {
 	        return new ProjectConfigUpdate(source);
@@ -72,6 +89,7 @@ export namespace main {
 	        if ('string' === typeof source) source = JSON.parse(source);
 	        this.name = source["name"];
 	        this.command = source["command"];
+	        this.devUrl = source["devUrl"];
 	    }
 	}
 	export class StartProjectResult {
